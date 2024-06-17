@@ -1,5 +1,7 @@
 # gin-simplebank
 
+TODO: สร้าง Makefile
+
 การตั้งค่าโปรเจกต์ Go สำหรับ Simple Bank
 TODO: ขั้นตอนที่ 1: ติดตั้ง Migrate
 # Migrate เป็นเครื่องมือที่ใช้ในการจัดการการย้ายข้อมูล (migrations) สำหรับฐานข้อมูลของคุณ
@@ -59,3 +61,14 @@ TODO: ขั้นตอนที่ 6: ทำความสะอาด Depend
 # ลบ dependencies ที่ไม่ใช้งาน
 # อัปเดตไฟล์ go.sum
 using: go mod tidy
+
+TODO: Go postgres driver for Go's database/sql package
+
+#Install
+using: go get github.com/lib/pq
+
+TODO: Testify - Thou Shalt Write Tests
+
+# To install Testify, use go get:
+
+go get github.com/stretchr/testify
