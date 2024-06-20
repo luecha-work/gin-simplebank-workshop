@@ -7,19 +7,19 @@ TODO: สร้าง Makefile
 # ขั้นตอนที่ 1: ติดตั้ง Migrate
 TODO: Migrate เป็นเครื่องมือที่ใช้ในการจัดการการย้ายข้อมูล (migrations) สำหรับฐานข้อมูลของคุณ
 
-# ตั้งค่าตัวแปรเวอร์ชัน
+## ตั้งค่าตัวแปรเวอร์ชัน
 using: version=v4.15.0
 
-# ดาวน์โหลด Migrate
+## ดาวน์โหลด Migrate
 using: curl -L https://github.com/golang-migrate/migrate/releases/download/$version/migrate.linux-amd64.tar.gz -o migrate.tar.gz
 
-# แตกไฟล์
+## แตกไฟล์
 using: tar xvzf migrate.tar.gz
 
-# ย้ายไฟล์ Migrate ไปที่ /usr/local/bin
+## ย้ายไฟล์ Migrate ไปที่ /usr/local/bin
 using: sudo mv migrate /usr/local/bin/migrate
 
-# ตรวจสอบเวอร์ชัน
+## ตรวจสอบเวอร์ชัน
 using: migrate -version
 
 # ขั้นตอนที่ 2: สร้างไฟล์ Migrate
