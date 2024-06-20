@@ -25,6 +25,7 @@ using: migrate -version
 # ขั้นตอนที่ 2: สร้างไฟล์ Migrate
 
 TODO: สร้างการย้ายข้อมูล (migration)
+
 using: migrate create -ext sql -dir db/migration -seq init_schema
 
 # ขั้นตอนที่ 3: คำสั่งพื้นฐานของ Docker
@@ -49,6 +50,7 @@ using: docker exec -it go-postgres psql -U root simple_bank
 TODO: SQLC เป็นเครื่องมือที่ใช้ในการสร้างโค้ดจากการ query SQL
 
 ## เริ่มการตั้งค่า SQLC
+
 using: sqlc init
 
 # ขั้นตอนที่ 5: สร้างไฟล์ go.mod
@@ -62,6 +64,7 @@ using: go mod init github.com/techschool/simple_bank
 - เพิ่ม dependencies ที่ขาดหาย
 - ลบ dependencies ที่ไม่ใช้งาน
 - อัปเดตไฟล์ go.sum
+
 using: go mod tidy
 
 # Go postgres driver for Go's database/sql package
