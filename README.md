@@ -1,10 +1,10 @@
-## gin-simplebank
+# gin-simplebank
 
 TODO: สร้าง Makefile
 
-## การตั้งค่าโปรเจกต์ Go สำหรับ Simple Bank
+# การตั้งค่าโปรเจกต์ Go สำหรับ Simple Bank
 
-## ขั้นตอนที่ 1: ติดตั้ง Migrate
+# ขั้นตอนที่ 1: ติดตั้ง Migrate
 TODO: Migrate เป็นเครื่องมือที่ใช้ในการจัดการการย้ายข้อมูล (migrations) สำหรับฐานข้อมูลของคุณ
 
 # ตั้งค่าตัวแปรเวอร์ชัน
@@ -22,12 +22,12 @@ using: sudo mv migrate /usr/local/bin/migrate
 # ตรวจสอบเวอร์ชัน
 using: migrate -version
 
-## ขั้นตอนที่ 2: สร้างไฟล์ Migrate
+# ขั้นตอนที่ 2: สร้างไฟล์ Migrate
 
 TODO: สร้างการย้ายข้อมูล (migration)
 using: migrate create -ext sql -dir db/migration -seq init_schema
 
-## ขั้นตอนที่ 3: คำสั่งพื้นฐานของ Docker
+# ขั้นตอนที่ 3: คำสั่งพื้นฐานของ Docker
 TODO: เข้าสู่คอนเทนเนอร์ของ PostgreSQL
 using: docker exec -it go-postgres /bin/sh
 
@@ -44,24 +44,24 @@ TODO เข้าสู่ PostgreSQL ด้วยฐานข้อมูล si
 using: docker exec -it go-postgres psql -U root simple_bank
 
 
-TODO: ขั้นตอนที่ 4: ตั้งค่า SQLC
+# ขั้นตอนที่ 4: ตั้งค่า SQLC
 
-# SQLC เป็นเครื่องมือที่ใช้ในการสร้างโค้ดจากการ query SQL
+TODO: SQLC เป็นเครื่องมือที่ใช้ในการสร้างโค้ดจากการ query SQL
 
 TODO: เริ่มการตั้งค่า SQLC
 using: sqlc init
 
-TODO: ขั้นตอนที่ 5: สร้างไฟล์ go.mod
+# ขั้นตอนที่ 5: สร้างไฟล์ go.mod
 
 go.mod เป็นไฟล์ที่สำคัญในระบบการจัดการโมดูลของ Go (Go Modules) ซึ่งถูกนำมาใช้ในการจัดการการพึ่งพา (dependencies) ของโปรเจกต์ Go ไฟล์นี้จะเก็บข้อมูลเกี่ยวกับโมดูลของโปรเจกต์ รวมถึงรายการของแพคเกจภายนอกที่โปรเจกต์ของคุณต้องการใช้งานและเวอร์ชันที่เฉพาะเจาะจงของแต่ละแพคเกจเหล่านั้น
 
 TODO สร้างไฟล์ go.mod
 using: go mod init github.com/techschool/simple_bank
 
-## ขั้นตอนที่ 6: ทำความสะอาด Dependencies
-# เพิ่ม dependencies ที่ขาดหาย
-# ลบ dependencies ที่ไม่ใช้งาน
-# อัปเดตไฟล์ go.sum
+# ขั้นตอนที่ 6: ทำความสะอาด Dependencies
+- เพิ่ม dependencies ที่ขาดหาย
+- ลบ dependencies ที่ไม่ใช้งาน
+- อัปเดตไฟล์ go.sum
 using: go mod tidy
 
 TODO: Go postgres driver for Go's database/sql package
