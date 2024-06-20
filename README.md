@@ -28,19 +28,19 @@ TODO: สร้างการย้ายข้อมูล (migration)
 using: migrate create -ext sql -dir db/migration -seq init_schema
 
 # ขั้นตอนที่ 3: คำสั่งพื้นฐานของ Docker
-TODO: เข้าสู่คอนเทนเนอร์ของ PostgreSQL
+## เข้าสู่คอนเทนเนอร์ของ PostgreSQL
 using: docker exec -it go-postgres /bin/sh
 
-TODO: เข้าสู่ PostgreSQL
+## เข้าสู่ PostgreSQL
 using: psql simple_bank
 
-TODO: ลบฐานข้อมูล simple_bank
+## ลบฐานข้อมูล simple_bank
 using: dropdb simple_bank
 
-TODO: สร้างฐานข้อมูล simple_bank ใหม่
+## สร้างฐานข้อมูล simple_bank ใหม่
 using: docker exec -it go-postgres createdb --username=root --owner=root simple_bank
 
-TODO เข้าสู่ PostgreSQL ด้วยฐานข้อมูล simple_bank
+## เข้าสู่ PostgreSQL ด้วยฐานข้อมูล simple_bank
 using: docker exec -it go-postgres psql -U root simple_bank
 
 
@@ -48,14 +48,14 @@ using: docker exec -it go-postgres psql -U root simple_bank
 
 TODO: SQLC เป็นเครื่องมือที่ใช้ในการสร้างโค้ดจากการ query SQL
 
-TODO: เริ่มการตั้งค่า SQLC
+## เริ่มการตั้งค่า SQLC
 using: sqlc init
 
 # ขั้นตอนที่ 5: สร้างไฟล์ go.mod
 
 go.mod เป็นไฟล์ที่สำคัญในระบบการจัดการโมดูลของ Go (Go Modules) ซึ่งถูกนำมาใช้ในการจัดการการพึ่งพา (dependencies) ของโปรเจกต์ Go ไฟล์นี้จะเก็บข้อมูลเกี่ยวกับโมดูลของโปรเจกต์ รวมถึงรายการของแพคเกจภายนอกที่โปรเจกต์ของคุณต้องการใช้งานและเวอร์ชันที่เฉพาะเจาะจงของแต่ละแพคเกจเหล่านั้น
 
-TODO สร้างไฟล์ go.mod
+## สร้างไฟล์ go.mod
 using: go mod init github.com/techschool/simple_bank
 
 # ขั้นตอนที่ 6: ทำความสะอาด Dependencies
@@ -64,7 +64,7 @@ using: go mod init github.com/techschool/simple_bank
 - อัปเดตไฟล์ go.sum
 using: go mod tidy
 
-TODO: Go postgres driver for Go's database/sql package
+# Go postgres driver for Go's database/sql package
 
 # Install
 using: go get github.com/lib/pq
