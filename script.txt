@@ -1,4 +1,4 @@
-# gin-simplebank
+# gin framework
 
 การตั้งค่าโปรเจกต์ Go สำหรับ Simple Bank
 TODO: ขั้นตอนที่ 1: ติดตั้ง Migrate
