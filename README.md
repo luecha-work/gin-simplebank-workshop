@@ -57,6 +57,10 @@ TODO: ขั้นตอนที่ 4: ตั้งค่า SQLC
 
 SQLC เป็นเครื่องมือที่ใช้ในการสร้างโค้ดจากการ query SQL
 
+# Install SQLC
+
+go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+
 # เริ่มการตั้งค่า SQLC
 
 using: sqlc init
