@@ -93,7 +93,11 @@ go install github.com/codegangsta/gin@latest
 
 TODO: Start Project
 gin run main.go
-
 or
-
 gin --port 8080 run main.go
+
+# Install Viper
+
+TODO Viper is a complete configuration solution for Go applications reading from JSON, TOML, YAML, HCL, envfile and Java properties config files
+
+go get github.com/spf13/viper
