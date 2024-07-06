@@ -101,3 +101,10 @@ gin --port 8080 run main.go
 TODO Viper is a complete configuration solution for Go applications reading from JSON, TOML, YAML, HCL, envfile and Java properties config files
 
 go get github.com/spf13/viper
+
+# Install gomock
+
+TODO ใช้สำหรับ Mock ข้อมูลเพื่อทำ Testing
+
+go install github.com/golang/mock/mockgen@latest
+go get github.com/golang/mock/mockgen@latest
