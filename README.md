@@ -1,124 +1,312 @@
-# gin framework
+# Simple Bank Project
 
-การตั้งค่าโปรเจกต์ Go สำหรับ Simple Bank
-TODO ขั้นตอนที่ 1: ติดตั้ง Migrate
+This project is a simple bank application developed using Go and several libraries and tools to manage database migrations, configurations, testing, and more.
 
-# Migrate เป็นเครื่องมือที่ใช้ในการจัดการการย้ายข้อมูล (migrations) สำหรับฐานข้อมูลของคุณ
+## Table of Contents
 
-# ตั้งค่าตัวแปรเวอร์ชัน
+1. [Libraries and Tools](#libraries-and-tools)
+2. [Project Setup Steps](#project-setup-steps)
+3. [Library Details and Installation](#library-details-and-installation)
 
-using: version=v4.15.0
+## Libraries and Tools
 
-# ดาวน์โหลด Migrate
+The following libraries and tools are used in this project:
 
-using: curl -L https://github.com/golang-migrate/migrate/releases/download/$version/migrate.linux-amd64.tar.gz -o migrate.tar.gz
+1. **Migrate**: A tool for managing database migrations.
+2. **SQLC**: Generates Go code from SQL queries.
+3. **Gin**: A web framework for building APIs.
+4. **Viper**: A configuration solution for Go applications.
+5. **Gomock**: A mocking framework for Go.
+6. **golang-jwt**: A library for creating and verifying JSON Web Tokens.
+7. **PASETO**: A library for creating and verifying Platform-Agnostic SEcure TOkens.
 
-# แตกไฟล์
+## Project Setup Steps
 
-using: tar xvzf migrate.tar.gz
+### Step 1: Install Migrate
 
-# ย้ายไฟล์ Migrate ไปที่ /usr/local/bin
+Migrate is used to manage database migrations.
 
-using: sudo mv migrate /usr/local/bin/migrate
+#### For Linux
 
-# ตรวจสอบเวอร์ชัน
+1. Set the version variable:
 
-using: migrate -version
+   ```bash
+   version=v4.15.0
+   ```
 
-TODO ขั้นตอนที่ 2: สร้างไฟล์ Migrate
+2. Download Migrate:
 
-# สร้างการย้ายข้อมูล (migration)
+   ```bash
+   curl -L https://github.com/golang-migrate/migrate/releases/download/$version/migrate.linux-amd64.tar.gz -o migrate.tar.gz
+   ```
 
-using: migrate create -ext sql -dir db/migration -seq init_schema
+3. Extract the tar file:
 
-TODO ขั้นตอนที่ 3: คำสั่งพื้นฐานของ Docker
+   ```bash
+   tar xvzf migrate.tar.gz
+   ```
 
-# เข้าสู่คอนเทนเนอร์ของ PostgreSQL
+4. Move Migrate to `/usr/local/bin`:
 
-using: docker exec -it go-postgres /bin/sh
+   ```bash
+   sudo mv migrate /usr/local/bin/migrate
+   ```
 
-# เข้าสู่ PostgreSQL
+5. Verify the installation:
+   ```bash
+   migrate -version
+   ```
 
-using: psql simple_bank
+#### For Windows
 
-# ลบฐานข้อมูล simple_bank
+1. Download the Migrate binary from [here](https://github.com/golang-migrate/migrate/releases/download/v4.15.0/migrate.windows-amd64.tar.gz).
+2. Extract the `migrate.exe` file to a directory of your choice.
+3. Add the directory to your system's PATH variable.
+4. Verify the installation by opening a command prompt and running:
+   ```cmd
+   migrate -version
+   ```
 
-using: dropdb simple_bank
+### Step 2: Create Migration Files
 
-# สร้างฐานข้อมูล simple_bank ใหม่
+1. Create a migration:
+   ```bash
+   migrate create -ext sql -dir db/migration -seq init_schema
+   ```
 
-using: docker exec -it go-postgres createdb --username=root --owner=root simple_bank
+### Step 3: Basic Docker Commands
 
-# เข้าสู่ PostgreSQL ด้วยฐานข้อมูล simple_bank
+#### For Linux
 
-using: docker exec -it go-postgres psql -U root simple_bank
+1. Enter the PostgreSQL container:
 
-TODO ขั้นตอนที่ 4: ตั้งค่า SQLC
+   ```bash
+   docker exec -it go-postgres /bin/sh
+   ```
 
-SQLC เป็นเครื่องมือที่ใช้ในการสร้างโค้ดจากการ query SQL
+2. Access PostgreSQL:
 
-# Install SQLC
+   ```bash
+   psql simple_bank
+   ```
 
-go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+3. Drop the `simple_bank` database:
 
-# เริ่มการตั้งค่า SQLC
+   ```bash
+   dropdb simple_bank
+   ```
 
-using: sqlc init
+4. Create the `simple_bank` database:
 
-TODO ขั้นตอนที่ 5: สร้างไฟล์ go.mod
+   ```bash
+   docker exec -it go-postgres createdb --username=root --owner=root simple_bank
+   ```
 
-go.mod เป็นไฟล์ที่สำคัญในระบบการจัดการโมดูลของ Go (Go Modules) ซึ่งถูกนำมาใช้ในการจัดการการพึ่งพา (dependencies) ของโปรเจกต์ Go ไฟล์นี้จะเก็บข้อมูลเกี่ยวกับโมดูลของโปรเจกต์ รวมถึงรายการของแพคเกจภายนอกที่โปรเจกต์ของคุณต้องการใช้งานและเวอร์ชันที่เฉพาะเจาะจงของแต่ละแพคเกจเหล่านั้น
+5. Access the `simple_bank` database:
+   ```bash
+   docker exec -it go-postgres psql -U root simple_bank
+   ```
 
-# สร้างไฟล์ go.mod
+#### For Windows
 
-using: go mod init github.com/techschool/simple_bank
+1. Enter the PostgreSQL container:
 
-TODO ขั้นตอนที่ 6: ทำความสะอาด Dependencies
+   ```cmd
+   docker exec -it go-postgres cmd
+   ```
 
-# เพิ่ม dependencies ที่ขาดหาย
+2. Access PostgreSQL:
 
-# ลบ dependencies ที่ไม่ใช้งาน
+   ```cmd
+   psql simple_bank
+   ```
 
-# อัปเดตไฟล์ go.sum
+3. Drop the `simple_bank` database:
 
-using: go mod tidy
+   ```cmd
+   dropdb simple_bank
+   ```
 
-# Golang Live Reload
+4. Create the `simple_bank` database:
 
-TODO ติดตั้ง Gin Web Framework
-go get -u github.com/gin-gonic/gin
+   ```cmd
+   docker exec -it go-postgres createdb --username=root --owner=root simple_bank
+   ```
 
-TODO ติดตั้ง Gin CLI Tool
-go install github.com/codegangsta/gin@latest
+5. Access the `simple_bank` database:
+   ```cmd
+   docker exec -it go-postgres psql -U root simple_bank
+   ```
 
-TODO Start Project
-gin run main.go
-or
-gin --port 8080 run main.go
+### Step 4: Setup SQLC
 
-# Install Viper
+SQLC is used to generate Go code from SQL queries.
 
-TODO Viper is a complete configuration solution for Go applications reading from JSON, TOML, YAML, HCL, envfile and Java properties config files
+1. Install SQLC:
 
-go get github.com/spf13/viper
+   ```bash
+   go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+   ```
 
-# Install gomock
+2. Initialize SQLC:
+   ```bash
+   sqlc init
+   ```
 
-TODO ใช้สำหรับ Mock ข้อมูลเพื่อทำ Testing
+### Step 5: Create go.mod File
 
-go install github.com/golang/mock/mockgen@latest
-go get github.com/golang/mock/mockgen@latest
+`go.mod` is essential for managing dependencies in a Go project.
 
-# Autn with golang-jwt
+1. Create the `go.mod` file:
+   ```bash
+   go mod init github.com/techschool/simple_bank
+   ```
 
-TODO เป็นไลบรารีสำหรับการสร้างและตรวจสอบ JSON Web Tokens (JWT) ในภาษา Go ซึ่งถูกพัฒนาขึ้นมาเป็นการแยกโครงการออกมาจาก github.com/dgrijalva/jwt-go เนื่องจากโครงการดั้งเดิมไม่ได้รับการบำรุงรักษาอย่างต่อเนื่อง โดยไลบรารีนี้ช่วยให้การทำงานกับ JWT ง่ายขึ้นและมีความปลอดภัยมากขึ้น
+### Step 6: Clean Dependencies
 
-- go get github.com/golang-jwt/jwt
+1. Add missing dependencies and remove unused ones, then update `go.sum`:
+   ```bash
+   go mod tidy
+   ```
 
-# PASETO
+### Additional Tools and Libraries
 
-TODO PASETO (Platform-Agnostic SEcure TOkens) เป็นรูปแบบของ token ที่ถูกออกแบบมาเพื่อความปลอดภัยที่ดีกว่าและใช้งานง่ายกว่า JWT (JSON Web Tokens) โดยเน้นที่การแก้ไขปัญหาด้านความปลอดภัยที่พบบ่อยใน JWT และเพิ่มความสะดวกในการใช้งาน
+1. **Gin Web Framework**:
 
-## INSTALL
+   - Install Gin:
+     ```bash
+     go get -u github.com/gin-gonic/gin
+     ```
+   - Install Gin CLI Tool:
+     ```bash
+     go install github.com/codegangsta/gin@latest
+     ```
+   - Start the project:
+     ```bash
+     gin run main.go
+     ```
+     Or:
+     ```bash
+     gin --port 8080 run main.go
+     ```
 
-go get github.com/o1egl/paseto
+2. **Viper**:
+
+   - Install Viper:
+     ```bash
+     go get github.com/spf13/viper
+     ```
+
+3. **Gomock**:
+
+   - Install Gomock:
+     ```bash
+     go install github.com/golang/mock/mockgen@latest
+     go get github.com/golang/mock/mockgen@latest
+     ```
+
+4. **golang-jwt**:
+
+   - Install golang-jwt:
+     ```bash
+     go get github.com/golang-jwt/jwt
+     ```
+
+5. **PASETO**:
+   - Install PASETO:
+     ```bash
+     go get github.com/o1egl/paseto
+     ```
+
+## Library Details and Installation
+
+### Migrate
+
+Migrate is a tool used for managing database migrations. It helps in applying, reverting, and tracking changes to the database schema.
+
+### SQLC
+
+SQLC generates Go code from SQL queries. This tool ensures that your database queries are type-safe and reduces boilerplate code.
+
+### Gin
+
+Gin is a web framework written in Go. It provides a robust set of features for building RESTful APIs and web services.
+
+### Viper
+
+Viper is a comprehensive configuration solution for Go applications. It supports reading from various configuration file formats and environment variables.
+
+### Gomock
+
+Gomock is a mocking framework for Go. It helps in creating mocks for interfaces, which is useful for unit testing.
+
+### golang-jwt
+
+The `golang-jwt` library is used for creating and verifying JSON Web Tokens (JWT). It simplifies authentication and authorization processes in your application.
+
+### PASETO
+
+PASETO (Platform-Agnostic SEcure TOkens) is a token format designed to be more secure and easier to use than JWT. It addresses common security pitfalls associated with JWT.
+
+## Conclusion
+
+This README provides a comprehensive guide to setting up and using various tools and libraries for the Simple Bank project. Follow the steps carefully to ensure a smooth setup process.
+
+### Docker
+
+Docker create network เป็นการสร้างเครื่อข่ายเชื่อมต่อคอนเทนเนอร์หลายตัวกับเครือข่าย
+
+1. Create network with docker:
+
+   ```bash
+   docker network create bank-network
+   ```
+
+2. network connect multi docker:
+
+   ```bash
+   docker network connect bank-network postgres12
+   ```
+
+3. ตรวจสอบรายละเอียดของเครือข่าย Docker:
+
+   ```bash
+   docker network inspect bank-network
+   ```
+
+Use Docker for deploy project
+
+1. Create Docker image with Dockerfile:
+
+   ```bash
+   docker build -t simplebank:latest .
+   ```
+
+2. Check Docker image:
+
+   ```bash
+   docker images
+   ```
+
+3. Start Docker image with Dockerfile:
+
+   ```bash
+   docker run --name simplebank -p 8080:8080 -e GIN_MODE=release simplebank:latest
+
+   Or use Network
+
+   docker run --name simplebank --network bank-network -p 8080:8080 -e GIN_MODE=release -e DB_SOURCE=postgresql://root:secret@postgres12:5432/simple_bank?sslmode=disable simplebank:lates
+   ```
+
+   **คำอธิบาย**:
+
+- **`--name simplebank`**: กำหนดชื่อให้กับคอนเทนเนอร์
+- **`-p 8080:8080`**: แมพพอร์ต 8080 บนเครื่องของคุณกับพอร์ต 8080 ในคอนเทนเนอร์
+- **`-e GIN_MODE=release`**: ตั้งค่าตัวแปรสภาพแวดล้อม `GIN_MODE` ให้เป็น `release`
+- **`postgres12`**: Database container name
+- **`--network bank-network`**: Use Network is bank-network
+
+### Basic docker cmd
+
+- docker container inspect container_name => ตรวจสอบรายละเอียดของ container
+- docker network inspect container_name => ตรวจสอบรายละเอียดเครือข่ายของ container
