@@ -81,7 +81,7 @@ Migrate is used to manage database migrations.
 1. Enter the PostgreSQL container:
 
    ```bash
-   docker exec -it go-postgres /bin/sh
+   docker exec -it postgres12 /bin/sh
    ```
 
 2. Access PostgreSQL:
@@ -99,12 +99,12 @@ Migrate is used to manage database migrations.
 4. Create the `simple_bank` database:
 
    ```bash
-   docker exec -it go-postgres createdb --username=root --owner=root simple_bank
+   docker exec -it postgres12 createdb --username=root --owner=root simple_bank
    ```
 
 5. Access the `simple_bank` database:
    ```bash
-   docker exec -it go-postgres psql -U root simple_bank
+   docker exec -it postgres12 psql -U root simple_bank
    ```
 
 #### For Windows
@@ -112,7 +112,7 @@ Migrate is used to manage database migrations.
 1. Enter the PostgreSQL container:
 
    ```cmd
-   docker exec -it go-postgres cmd
+   docker exec -it postgres12 cmd
    ```
 
 2. Access PostgreSQL:
@@ -130,12 +130,12 @@ Migrate is used to manage database migrations.
 4. Create the `simple_bank` database:
 
    ```cmd
-   docker exec -it go-postgres createdb --username=root --owner=root simple_bank
+   docker exec -it postgres12 createdb --username=root --owner=root simple_bank
    ```
 
 5. Access the `simple_bank` database:
    ```cmd
-   docker exec -it go-postgres psql -U root simple_bank
+   docker exec -it postgres12 psql -U root simple_bank
    ```
 
 ### Step 4: Setup SQLC
@@ -295,7 +295,7 @@ Use Docker for deploy project
 
    Or use Network
 
-   docker run --name simplebank --network bank-network -p 8080:8080 -e GIN_MODE=release -e DB_SOURCE=postgresql://root:secret@postgres12:5432/simple_bank?sslmode=disable simplebank:lates
+   docker run --name simplebank --network bank-network -p 8080:8080 -e GIN_MODE=release -e "DB_SOURCE=postgresql://root:secret@postgres12:5432/simple_bank?sslmode=disable" simplebank:lates
    ```
 
    **คำอธิบาย**:
@@ -310,3 +310,19 @@ Use Docker for deploy project
 
 - docker container inspect container_name => ตรวจสอบรายละเอียดของ container
 - docker network inspect container_name => ตรวจสอบรายละเอียดเครือข่ายของ container
+
+# wait-for.sh
+
+`wait-for.sh` เป็นสคริปต์ Bash ที่ช่วยในการรอให้บริการหรือทรัพยากรภายนอก (เช่น ฐานข้อมูล) พร้อมใช้งานก่อนที่จะเริ่มทำงานของแอปพลิเคชัน โดยเฉพาะในบริบทของการพัฒนาหรือการใช้งาน Docker คอนเทนเนอร์
+
+## วิธีการใช้งาน
+
+คุณสามารถใช้ `wait-for.sh` เพื่อรอให้บริการที่ระบุพร้อมใช้งาน จากนั้นจึงดำเนินการคำสั่งที่ต้องการ
+
+### ตัวอย่างการใช้งาน
+
+สมมติว่าคุณต้องการรอให้บริการ PostgreSQL บนโฮสต์ `database` พอร์ต `5432` พร้อมใช้งานก่อนที่จึงจะดำเนินการคำสั่งต่อไป คุณสามารถใช้สคริปต์ดังนี้:
+
+```sh
+./wait-for.sh database:5432 -- echo "Database is up"
+```
