@@ -326,3 +326,23 @@ Use Docker for deploy project
 ```sh
 ./wait-for.sh database:5432 -- echo "Database is up"
 ```
+
+# AWS ECR (Amazon Elastic Container Registry)
+
+คือบริการจาก AWS ที่ใช้สำหรับเก็บและจัดการ `container images` สำหรับ `Docker` โดยมีคุณสมบัติดังนี้
+
+```bash
+`คุณสมบัติหลัก`
+1. การเก็บรักษา: ECR ช่วยให้คุณสามารถเก็บ container images ได้อย่างปลอดภัย พร้อมการเข้ารหัสข้อมูลทั้งที่เก็บและส่งข้อมูล
+
+2. การจัดการ: ECR มีเครื่องมือในการจัดการและเวอร์ชันของ images รวมถึงการจัดการการเข้าถึง (IAM) เพื่อควบคุมว่าใครสามารถเข้าถึงและจัดการ images ได้
+
+3. การบูรณาการ: ECR ทำงานร่วมกับบริการอื่น ๆ ของ AWS ได้ดี เช่น Amazon ECS (Elastic Container Service) และ EKS (Elastic Kubernetes Service) เพื่อให้คุณสามารถใช้ container images ได้ง่ายขึ้นในแอปพลิเคชันของคุณ
+
+4. ประสิทธิภาพ: ECR มีความสามารถในการทำ cache และดึง images อย่างรวดเร็ว ช่วยลดเวลาในการ deployment
+```
+
+### การใช้งาน
+
+การสร้างและ push images: คุณสามารถสร้าง Docker images และ push ขึ้นไปยัง ECR เพื่อเก็บไว้
+การดึง images: เมื่อคุณต้องการใช้งาน container images ในการ deploy สามารถดึง images จาก ECR ได้โดยตรง
