@@ -346,3 +346,13 @@ Use Docker for deploy project
 
 การสร้างและ push images: คุณสามารถสร้าง Docker images และ push ขึ้นไปยัง ECR เพื่อเก็บไว้
 การดึง images: เมื่อคุณต้องการใช้งาน container images ในการ deploy สามารถดึง images จาก ECR ได้โดยตรง
+
+# Pull image form aws ECR
+
+1. login aws
+   - get password: aws ecr get-login-password
+2. aws ecr get-login-password \
+    --region <region> \
+   | docker login \
+    --username AWS \
+    --password-stdin <aws_account_id>.dkr.ecr.<region>.amazonaws.com
