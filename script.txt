@@ -34,10 +34,10 @@ using: psql simple_bank
 using: dropdb simple_bank
 
 # สร้างฐานข้อมูล simple_bank ใหม่
-using: docker exec -it go-postgres createdb --username=root --owner=root simple_bank
+using: docker exec -it go-postgres createdb --username=wginroot --owner=wginroot simple_bank
 
 # เข้าสู่ PostgreSQL ด้วยฐานข้อมูล simple_bank
-using: docker exec -it go-postgres psql -U root simple_bank
+using: docker exec -it go-postgres psql -U wginroot simple_bank
 
 
 TODO: ขั้นตอนที่ 4: ตั้งค่า SQLC

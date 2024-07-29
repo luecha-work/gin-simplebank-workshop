@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapUsers: |
+    - userarn: arn:aws:iam::325274678571:user/luecha-githun-ci-wgin
+      username: luecha-githun-ci-wgin
+      groups:
+        - system:masters

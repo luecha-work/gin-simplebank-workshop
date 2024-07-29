@@ -99,12 +99,12 @@ Migrate is used to manage database migrations.
 4. Create the `simple_bank` database:
 
    ```bash
-   docker exec -it postgres12 createdb --username=root --owner=root simple_bank
+   docker exec -it postgres12 createdb --username=wginroot --owner=wginroot simple_bank
    ```
 
 5. Access the `simple_bank` database:
    ```bash
-   docker exec -it postgres12 psql -U root simple_bank
+   docker exec -it postgres12 psql -U wginroot simple_bank
    ```
 
 #### For Windows
@@ -130,12 +130,12 @@ Migrate is used to manage database migrations.
 4. Create the `simple_bank` database:
 
    ```cmd
-   docker exec -it postgres12 createdb --username=root --owner=root simple_bank
+   docker exec -it postgres12 createdb --username=wginroot --owner=wginroot simple_bank
    ```
 
 5. Access the `simple_bank` database:
    ```cmd
-   docker exec -it postgres12 psql -U root simple_bank
+   docker exec -it postgres12 psql -U wginroot simple_bank
    ```
 
 ### Step 4: Setup SQLC
@@ -295,7 +295,7 @@ Use Docker for deploy project
 
    Or use Network
 
-   docker run --name simplebank --network bank-network -p 8080:8080 -e GIN_MODE=release -e "DB_SOURCE=postgresql://root:secret@postgres12:5432/simple_bank?sslmode=disable" simplebank:lates
+   docker run --name simplebank --network bank-network -p 8080:8080 -e GIN_MODE=release -e "DB_SOURCE=postgresql://wginroot:secret@postgres12:5432/simple_bank?sslmode=disable" simplebank:lates
    ```
 
    **คำอธิบาย**:
@@ -360,3 +360,44 @@ login aws
 ```
 Amazon Elastic Kubernetes Service (EKS) คือบริการที่มีการจัดการจาก Amazon Web Services (AWS) สำหรับการใช้งาน `Kubernetes` ซึ่งเป็นแพลตฟอร์มโอเพ่นซอร์สสำหรับการจัดการ containerized applications. EKS ช่วยให้ผู้ใช้สามารถเริ่มต้นและบริหารจัดการ `Kubernetes` บน AWS ได้ง่ายขึ้นโดยที่ไม่ต้องตั้งค่าและบริหารจัดการ control plane ของ `Kubernetes` เอง
 ```
+
+- Install kubernetes to local form `https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/`
+
+- Connect kube and aws with `aws eks update-kubeconfig --name simple-bank --region ap-southeast-2`
+
+- Check config detail with `cat ~/.kube/config`
+
+# Kubernetes เบื่องต้น
+
+```
+คำสั่ง aws sts get-caller-identity ใช้เพื่อตรวจสอบและแสดงข้อมูลเกี่ยวกับ IAM identity (ผู้ใช้หรือ role) ที่กำลังใช้งาน AWS CLI หรือ SDK ในขณะนั้น
+```
+
+- aws sts get-caller-identity
+
+```
+คำสั่งนี้ใช้เพื่อแสดงข้อมูลเกี่ยวกับ Kubernetes cluster ที่คุณเชื่อมต่ออยู่
+```
+
+- kubectl cluster-info
+
+```
+คำสั่งนี้ใช้เพื่อแสดงรายการของ pods ที่กำลังรันอยู่ใน Kubernetes cluster
+```
+
+- kubectl get pods
+
+# K9S
+
+```
+K9s เป็นเครื่องมือที่ใช้สำหรับการจัดการและมอนิเตอร์ Kubernetes clusters ผ่านทาง command-line interface (CLI) ที่มีลักษณะของ UI แบบ text-based ซึ่งช่วยให้การจัดการและตรวจสอบ Kubernetes cluster ง่ายและรวดเร็วขึ้น
+```
+
+### Install On Ubuntu
+
+- curl -sS https://webinstall.dev/k9s | bash
+- k9s version
+
+### Use K9S
+
+- k9s
