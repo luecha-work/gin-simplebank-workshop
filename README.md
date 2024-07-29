@@ -347,12 +347,16 @@ Use Docker for deploy project
 การสร้างและ push images: คุณสามารถสร้าง Docker images และ push ขึ้นไปยัง ECR เพื่อเก็บไว้
 การดึง images: เมื่อคุณต้องการใช้งาน container images ในการ deploy สามารถดึง images จาก ECR ได้โดยตรง
 
-# Pull image form aws ECR
+# Pull image form aws ECR => See detail `https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login-password.html`
 
-1. login aws
-   - get password: aws ecr get-login-password
-2. aws ecr get-login-password \
-    --region <region> \
-   | docker login \
-    --username AWS \
-    --password-stdin <aws_account_id>.dkr.ecr.<region>.amazonaws.com
+login aws
+
+- get password: aws ecr get-login-password
+  or
+- aws ecr get-login-password | docker login --username AWS --password-stdin 325274678571.dkr.ecr.ap-southeast-2.amazonaws.com
+
+# Amazon Elastic Kubernetes Service (EKS)
+
+```
+Amazon Elastic Kubernetes Service (EKS) คือบริการที่มีการจัดการจาก Amazon Web Services (AWS) สำหรับการใช้งาน `Kubernetes` ซึ่งเป็นแพลตฟอร์มโอเพ่นซอร์สสำหรับการจัดการ containerized applications. EKS ช่วยให้ผู้ใช้สามารถเริ่มต้นและบริหารจัดการ `Kubernetes` บน AWS ได้ง่ายขึ้นโดยที่ไม่ต้องตั้งค่าและบริหารจัดการ control plane ของ `Kubernetes` เอง
+```
