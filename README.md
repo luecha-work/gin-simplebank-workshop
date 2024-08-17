@@ -347,6 +347,12 @@ Use Docker for deploy project
 การสร้างและ push images: คุณสามารถสร้าง Docker images และ push ขึ้นไปยัง ECR เพื่อเก็บไว้
 การดึง images: เมื่อคุณต้องการใช้งาน container images ในการ deploy สามารถดึง images จาก ECR ได้โดยตรง
 
+# AWS IAM (Identity and Access Management)
+
+```
+เป็นบริการของ AWS ที่ช่วยจัดการการเข้าถึงทรัพยากร AWS อย่างปลอดภัย โดยผู้ใช้สามารถควบคุมว่าใครสามารถทำอะไรกับทรัพยากรใน AWS ได้บ้าง IAM ช่วยให้คุณสามารถ
+```
+
 # Pull image form aws ECR => See detail `https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login-password.html`
 
 login aws
