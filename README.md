@@ -199,11 +199,20 @@ SQLC is used to generate Go code from SQL queries.
 
 3. **Gomock**:
 
+   ### mockgen เป็นเครื่องมือในภาษา Go ที่ใช้ในการสร้าง mock objects สำหรับการทดสอบโค้ด โดยเฉพาะในการทดสอบ unit test
+
    - Install Gomock:
+
      ```bash
      go install github.com/golang/mock/mockgen@latest
      go get github.com/golang/mock/mockgen@latest
      ```
+
+   - set up for ubuntu
+
+   ```
+   export PATH=$PATH:$(go env GOPATH)/bin
+   ```
 
 4. **golang-jwt**:
 
