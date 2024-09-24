@@ -4,7 +4,7 @@ package pb;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/techschool/simple_bank/pb";
+option go_package = "github.com/techschool/simplebank/pb";
 
 message User {
     string username = 1;
@@ -13,4 +13,3 @@ message User {
     google.protobuf.Timestamp password_changed_at = 4;
     google.protobuf.Timestamp created_at = 5;
 }
-

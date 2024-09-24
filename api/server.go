@@ -19,10 +19,11 @@ type Server struct {
 	router     *gin.Engine
 }
 
+// NewServer creates a new HTTO server.
 func NewServer(config utils.Config, store db.Store) (*Server, error) {
 	//TODO: Select PasetoMaker or JETMaker to generate token
-	// tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
-	tokenMaker, err := token.NewJWTMaker(config.TokenSymmetricKey)
+	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
+	// tokenMaker, err := token.NewJWTMaker(config.TokenSymmetricKey)
 	if err != nil {
 		return nil, fmt.Errorf("Connot create token maker: %w", err)
 	}
