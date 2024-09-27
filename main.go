@@ -55,31 +55,6 @@ func runGrpcServer(
 	}
 }
 
-func runGrpcServer2(
-	config utils.Config,
-	store db.Store,
-) {
-	server, err := gapi.NewServer(config, store)
-	if err != nil {
-		log.Fatal("cannot create server", err)
-	}
-
-	grpcServer := grpc.NewServer()
-	pb.RegisterSimpleBankServer(grpcServer, server)
-	reflection.Register(grpcServer)
-
-	listener, err := net.Listen("tcp", config.GRPCServerAddress)
-	if err != nil {
-		log.Fatal("cannot start listener: ", err)
-	}
-
-	log.Printf("start gRPC server %s", listener.Addr().String())
-	err = grpcServer.Serve(listener)
-	if err != nil {
-		log.Fatal("cannot start gRPC server")
-	}
-}
-
 func runGinServer(config utils.Config, store db.Store) {
 	server, err := api.NewServer(config, store)
 	if err != nil {
