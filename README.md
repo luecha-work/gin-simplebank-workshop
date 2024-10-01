@@ -1,14 +1,16 @@
 # Simple Bank Project
 
+```
 This project is a simple bank application developed using Go and several libraries and tools to manage database migrations, configurations, testing, and more.
+```
 
-## Table of Contents
+# Table of Contents
 
 1. [Libraries and Tools](#libraries-and-tools)
 2. [Project Setup Steps](#project-setup-steps)
 3. [Library Details and Installation](#library-details-and-installation)
 
-## Libraries and Tools
+# Libraries and Tools
 
 The following libraries and tools are used in this project:
 
@@ -20,13 +22,13 @@ The following libraries and tools are used in this project:
 6. **golang-jwt**: A library for creating and verifying JSON Web Tokens.
 7. **PASETO**: A library for creating and verifying Platform-Agnostic SEcure TOkens.
 
-## Project Setup Steps
+# Project Setup Steps
 
-### Step 1: Install Migrate
+## Step 1: Install Migrate
 
 Migrate is used to manage database migrations.
 
-#### For Linux
+### For Linux
 
 1. Set the version variable:
 
@@ -57,7 +59,7 @@ Migrate is used to manage database migrations.
    migrate -version
    ```
 
-#### For Windows
+### For Windows
 
 1. Download the Migrate binary from [here](https://github.com/golang-migrate/migrate/releases/download/v4.15.0/migrate.windows-amd64.tar.gz).
 2. Extract the `migrate.exe` file to a directory of your choice.
@@ -67,16 +69,16 @@ Migrate is used to manage database migrations.
    migrate -version
    ```
 
-### Step 2: Create Migration Files
+## Step 2: Create Migration Files
 
 1. Create a migration:
    ```bash
    migrate create -ext sql -dir db/migration -seq init_schema
    ```
 
-### Step 3: Basic Docker Commands
+## Step 3: Basic Docker Commands
 
-#### For Linux
+### For Linux
 
 1. Enter the PostgreSQL container:
 
@@ -107,7 +109,7 @@ Migrate is used to manage database migrations.
    docker exec -it postgres12 psql -U wginroot simple_bank
    ```
 
-#### For Windows
+### For Windows
 
 1. Enter the PostgreSQL container:
 
@@ -138,7 +140,7 @@ Migrate is used to manage database migrations.
    docker exec -it postgres12 psql -U wginroot simple_bank
    ```
 
-### Step 4: Setup SQLC
+## Step 4: Setup SQLC
 
 SQLC is used to generate Go code from SQL queries.
 
@@ -153,7 +155,7 @@ SQLC is used to generate Go code from SQL queries.
    sqlc init
    ```
 
-### Step 5: Create go.mod File
+## Step 5: Create go.mod File
 
 `go.mod` is essential for managing dependencies in a Go project.
 
@@ -162,14 +164,14 @@ SQLC is used to generate Go code from SQL queries.
    go mod init github.com/techschool/simple_bank
    ```
 
-### Step 6: Clean Dependencies
+## Step 6: Clean Dependencies
 
 1. Add missing dependencies and remove unused ones, then update `go.sum`:
    ```bash
    go mod tidy
    ```
 
-### Additional Tools and Libraries
+## Additional Tools and Libraries
 
 1. **Gin Web Framework**:
 
@@ -199,7 +201,9 @@ SQLC is used to generate Go code from SQL queries.
 
 3. **Gomock**:
 
-   ### mockgen เป็นเครื่องมือในภาษา Go ที่ใช้ในการสร้าง mock objects สำหรับการทดสอบโค้ด โดยเฉพาะในการทดสอบ unit test
+   ```
+   mockgen เป็นเครื่องมือในภาษา Go ที่ใช้ในการสร้าง mock objects สำหรับการทดสอบโค้ด โดยเฉพาะในการทดสอบ unit test
+   ```
 
    - Install Gomock:
 
@@ -229,39 +233,37 @@ SQLC is used to generate Go code from SQL queries.
 
 ## Library Details and Installation
 
-### Migrate
-
 Migrate is a tool used for managing database migrations. It helps in applying, reverting, and tracking changes to the database schema.
 
-### SQLC
+**SQLC**
 
 SQLC generates Go code from SQL queries. This tool ensures that your database queries are type-safe and reduces boilerplate code.
 
-### Gin
+**Gin**
 
 Gin is a web framework written in Go. It provides a robust set of features for building RESTful APIs and web services.
 
-### Viper
+**Viper**
 
 Viper is a comprehensive configuration solution for Go applications. It supports reading from various configuration file formats and environment variables.
 
-### Gomock
+**Gomock**
 
 Gomock is a mocking framework for Go. It helps in creating mocks for interfaces, which is useful for unit testing.
 
-### golang-jwt
+**golang-jwt**
 
 The `golang-jwt` library is used for creating and verifying JSON Web Tokens (JWT). It simplifies authentication and authorization processes in your application.
 
-### PASETO
+**PASETO**
 
 PASETO (Platform-Agnostic SEcure TOkens) is a token format designed to be more secure and easier to use than JWT. It addresses common security pitfalls associated with JWT.
 
-## Conclusion
+**Conclusion**
 
 This README provides a comprehensive guide to setting up and using various tools and libraries for the Simple Bank project. Follow the steps carefully to ensure a smooth setup process.
 
-### Docker
+**Docker**
 
 Docker create network เป็นการสร้างเครื่อข่ายเชื่อมต่อคอนเทนเนอร์หลายตัวกับเครือข่าย
 
@@ -315,7 +317,7 @@ Use Docker for deploy project
 - **`postgres12`**: Database container name
 - **`--network bank-network`**: Use Network is bank-network
 
-### Basic docker cmd
+# Basic docker cmd
 
 - docker container inspect container_name => ตรวจสอบรายละเอียดของ container
 - docker network inspect container_name => ตรวจสอบรายละเอียดเครือข่ายของ container
@@ -328,7 +330,7 @@ Use Docker for deploy project
 
 คุณสามารถใช้ `wait-for.sh` เพื่อรอให้บริการที่ระบุพร้อมใช้งาน จากนั้นจึงดำเนินการคำสั่งที่ต้องการ
 
-### ตัวอย่างการใช้งาน
+## ตัวอย่างการใช้งาน
 
 สมมติว่าคุณต้องการรอให้บริการ PostgreSQL บนโฮสต์ `database` พอร์ต `5432` พร้อมใช้งานก่อนที่จึงจะดำเนินการคำสั่งต่อไป คุณสามารถใช้สคริปต์ดังนี้:
 
@@ -351,7 +353,7 @@ Use Docker for deploy project
 4. ประสิทธิภาพ: ECR มีความสามารถในการทำ cache และดึง images อย่างรวดเร็ว ช่วยลดเวลาในการ deployment
 ```
 
-### การใช้งาน
+## การใช้งาน
 
 การสร้างและ push images: คุณสามารถสร้าง Docker images และ push ขึ้นไปยัง ECR เพื่อเก็บไว้
 การดึง images: เมื่อคุณต้องการใช้งาน container images ในการ deploy สามารถดึง images จาก ECR ได้โดยตรง
@@ -410,12 +412,12 @@ Amazon Elastic Kubernetes Service (EKS) คือบริการที่ม�
 K9s เป็นเครื่องมือที่ใช้สำหรับการจัดการและมอนิเตอร์ Kubernetes clusters ผ่านทาง command-line interface (CLI) ที่มีลักษณะของ UI แบบ text-based ซึ่งช่วยให้การจัดการและตรวจสอบ Kubernetes cluster ง่ายและรวดเร็วขึ้น
 ```
 
-### Install On Ubuntu
+## Install On Ubuntu
 
 - curl -sS https://webinstall.dev/k9s | bash
 - k9s version
 
-### Use K9S
+## Use K9S
 
 - k9s
 
@@ -455,9 +457,9 @@ gRPC และ Protocol Buffers (protobuf) เป็นเทคโนโลย�
 
 # ktr0731/evans
 
-```
-https://github.com/ktr0731/evans
+เพิ่มเติมที่ [ที่นี่](https://github.com/ktr0731/evans)
 
+```
 ป็นโครงการโอเพนซอร์สที่พัฒนาโดยผู้ใช้ GitHub ชื่อ ktr0731 ซึ่ง Evans เป็นเครื่องมือที่ใช้สำหรับการโต้ตอบกับ gRPC APIs ผ่าน CLI (Command Line Interface) หรือที่เรียกได้ว่าเป็น gRPC client ในรูปแบบ command-line
 
 Install ktr0731/evans
@@ -476,4 +478,50 @@ go install github.com/ktr0731/evans@latest
 3. ตรวจสอบการติดตั้ง:
 
 evans --version
+```
+
+# gRPCurl Guide
+
+`grpcurl` เป็นเครื่องมือ command-line ที่ช่วยทดสอบ gRPC services โดยไม่ต้องเขียน client code ช่วยให้การเรียกใช้ services และการ debug ทำได้สะดวกผ่านการส่งและรับข้อมูลในรูปแบบ JSON
+
+## การติดตั้ง
+
+1. ดาวน์โหลด `grpcurl` จาก [ที่นี่](https://github.com/fullstorydev/grpcurl/releases)
+2. ตรวจสอบการติดตั้งด้วยคำสั่ง:
+   ```bash
+   grpcurl --version
+   ```
+
+## การใช้งาน
+
+1. List services บน gRPC Server ใช้คำสั่งนี้เพื่อแสดงรายชื่อ services ที่ gRPC server ให้บริการ:
+
+```
+grpcurl -plaintext localhost:50051 list
+
+```
+
+2. List methods ของ service:
+
+```
+grpcurl -plaintext localhost:50051 list pb.SimpleBank
+```
+
+3. เรียกใช้งาน method บน gRPC Server
+
+```
+grpcurl -plaintext -d '{"username": "test_user", "password": "test_pass"}' localhost:50051 pb.SimpleBank.LoginUser
+```
+
+4. เรียกใช้ method ที่ไม่ต้องการข้อมูล
+
+```
+grpcurl -plaintext localhost:50051 pb.SimpleBank.GetUser
+```
+
+6.5. ใช้งานกับ TLS (Secure Connection)
+
+```
+grpcurl -insecure -d '{"username": "test_user", "password": "test_pass"}' localhost:50051 pb.SimpleBank.LoginUser
+
 ```
