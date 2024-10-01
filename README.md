@@ -525,3 +525,19 @@ grpcurl -plaintext localhost:50051 pb.SimpleBank.GetUser
 grpcurl -insecure -d '{"username": "test_user", "password": "test_pass"}' localhost:50051 pb.SimpleBank.LoginUser
 
 ```
+
+# gRPC-Gateway
+
+เพิ่มเติมที่ [ที่นี่](https://github.com/grpc-ecosystem/grpc-gateway)
+
+```
+เป็นเครื่องมือในระบบ gRPC ที่ช่วยให้สามารถสร้าง RESTful HTTP API โดยทำการแปลงการเรียก gRPC ไปเป็นการเรียกผ่าน HTTP/1.1 และใช้ JSON ในการสื่อสารได้โดยอัตโนมัติ ซึ่งช่วยให้ผู้พัฒนาสามารถรองรับการสื่อสารทั้งแบบ gRPC และ RESTful API ได้ในเวลาเดียวกัน โดยไม่ต้องเขียนโค้ดสองชุดแยกกัน
+```
+
+## การทำงานของ grpc-gateway
+
+```
+1. `API การแปลง:` grpc-gateway ทำหน้าที่เป็น proxy ระหว่าง HTTP และ gRPC โดยมันจะรับคำร้องจาก HTTP (REST API) ที่ส่งมาเป็น JSON และแปลงคำร้องเหล่านั้นให้เป็นการเรียก gRPC ภายใน
+2. `การเชื่อมโยงระหว่าง gRPC กับ HTTP:` เราจะใช้ไฟล์ .proto (ไฟล์ที่กำหนดโครงสร้างของ gRPC service) เพิ่มคำสั่งที่บอกว่า RPC method แต่ละตัวจะถูกแมปกับ HTTP method (GET, POST, PUT, DELETE) และ endpoint ใด
+3. `การตอบกลับ:` เมื่อ gRPC ส่งผลลัพธ์กลับมา มันจะถูกแปลงเป็น JSON และส่งกลับไปยัง client ผ่าน HTTP
+```
