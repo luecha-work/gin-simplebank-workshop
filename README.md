@@ -541,3 +541,52 @@ grpcurl -insecure -d '{"username": "test_user", "password": "test_pass"}' localh
 2. `การเชื่อมโยงระหว่าง gRPC กับ HTTP:` เราจะใช้ไฟล์ .proto (ไฟล์ที่กำหนดโครงสร้างของ gRPC service) เพิ่มคำสั่งที่บอกว่า RPC method แต่ละตัวจะถูกแมปกับ HTTP method (GET, POST, PUT, DELETE) และ endpoint ใด
 3. `การตอบกลับ:` เมื่อ gRPC ส่งผลลัพธ์กลับมา มันจะถูกแปลงเป็น JSON และส่งกลับไปยัง client ผ่าน HTTP
 ```
+
+## Set up in gi framework
+
+clone project [ที่นี่](https://github.com/grpc-ecosystem/grpc-gateway)
+
+```
+1. move file to proto/google/api
+   `
+   google/api/annotations.proto
+   google/api/field_behavior.proto
+   google/api/http.proto
+   google/api/httpbody.proto
+   `
+
+2. add option in your service `SimpleBank`
+  `
+   option (google.api.http) = {
+      post: "/v1/create_user"
+      body: "*"
+   };
+  `
+3. add `--grpc-gateway_out=pb --grpc-gateway_opt=paths=source_relative` in proto script
+4. run make proto
+```
+
+# OpenAPI Swagger
+
+clone project [ที่นี่](https://github.com/grpc-ecosystem/grpc-gateway)
+
+## 1. Setup Swagger
+
+```
+1. move file *.proto in Folder protoc-gen-openapiv2/options/ to your project proto/protoc-gen-openapiv2/options
+2. create option in service_simple_bank.proto
+3. add `--openapiv2_out=doc/swagger --openapiv2_opt=allow_merge=true,merge_file_name=simple_bank` in proto script
+4. run make proto
+
+```
+
+## 2. Create Swagger UI
+
+clone project [ที่นี่](https://github.com/swagger-api/swagger-ui)
+
+```
+1. move all file in folder dist to your folder `doc/swagger`
+2. chang url in file swagger-initializer.js to your swagger file json `(doc/swagger/simple_bank.swagger.json)`
+3. add config runGatewayServer at mark TODO: Setup Swagger in main.go file
+4. go to swagger with `http://localhost:8080/swagger`
+```

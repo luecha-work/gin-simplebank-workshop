@@ -91,6 +91,10 @@ func runGatewayServer(
 	mux := http.NewServeMux()
 	mux.Handle("/", grpcMux)
 
+	//TODO: Setup Swagger
+	fs := http.FileServer(http.Dir("./doc/swagger"))
+	mux.Handle("/swagger/", http.StripPrefix("/swagger/", fs))
+
 	listener, err := net.Listen("tcp", config.HTTPServerAddress)
 	if err != nil {
 		log.Fatal("cannot start listener: ", err)
