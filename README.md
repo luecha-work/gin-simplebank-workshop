@@ -590,3 +590,11 @@ clone project [ที่นี่](https://github.com/swagger-api/swagger-ui)
 3. add config runGatewayServer at mark TODO: Setup Swagger in main.go file
 4. go to swagger with `http://localhost:8080/swagger`
 ```
+
+# zerolog
+
+เพิ่มเติมที่ [ที่นี่](https://github.com/rs/zerolog)
+
+```
+สร้าง log ในระบบของ golang ด้วย zerolog
+```
