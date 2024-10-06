@@ -364,7 +364,9 @@ Use Docker for deploy project
 เป็นบริการของ AWS ที่ช่วยจัดการการเข้าถึงทรัพยากร AWS อย่างปลอดภัย โดยผู้ใช้สามารถควบคุมว่าใครสามารถทำอะไรกับทรัพยากรใน AWS ได้บ้าง IAM ช่วยให้คุณสามารถ
 ```
 
-# Pull image form aws ECR => See detail `https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login-password.html`
+# Pull image form aws ECR
+
+เพิ่มเติมที่ [ที่นี่](https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login-password.html)
 
 ```
 `login aws`
@@ -498,7 +500,6 @@ evans --version
 
 ```
 grpcurl -plaintext localhost:50051 list
-
 ```
 
 2. List methods ของ service:
@@ -523,7 +524,6 @@ grpcurl -plaintext localhost:50051 pb.SimpleBank.GetUser
 
 ```
 grpcurl -insecure -d '{"username": "test_user", "password": "test_pass"}' localhost:50051 pb.SimpleBank.LoginUser
-
 ```
 
 # gRPC-Gateway
@@ -577,7 +577,6 @@ clone project [ที่นี่](https://github.com/grpc-ecosystem/grpc-gatewa
 2. create option in service_simple_bank.proto
 3. add `--openapiv2_out=doc/swagger --openapiv2_opt=allow_merge=true,merge_file_name=simple_bank` in proto script
 4. run make proto
-
 ```
 
 ## 2. Create Swagger UI
