@@ -12,6 +12,7 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/hibiken/asynq"
 	_ "github.com/lib/pq"
 	"github.com/rakyll/statik/fs"
 	"github.com/rs/zerolog"
@@ -22,6 +23,7 @@ import (
 	"github.com/techschool/simple_bank/gapi"
 	"github.com/techschool/simple_bank/pb"
 	"github.com/techschool/simple_bank/utils"
+	"github.com/techschool/simple_bank/worker"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -47,31 +49,65 @@ func main() {
 	runDBMigration(config.MigrationURL, config.DBSource)
 
 	store := db.NewStore(conn)
-	go runGatewayServer(config, store)
-	runGrpcServer(config, store)
+
+	redisOpt := asynq.RedisClientOpt{
+		Addr: config.RedisAddress,
+	}
+
+	taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
+
+	go runTaskProcessor(redisOpt, store)
+	go runGatewayServer(config, store, taskDistributor)
+	runGrpcServer(config, store, taskDistributor)
 	// runGinServer(config, store)
 }
 
 func runDBMigration(migrationURL string, dbSource string) {
 	migration, err := migrate.New(migrationURL, dbSource)
 	if err != nil {
-		// log.Fatal().Msg().Err(err).Msg("cannot create new migrate instance")
 		log.Fatal().Msg("cannot create new migrate instance")
 	}
 
 	if err = migration.Up(); err != nil && err != migrate.ErrNoChange {
-		// log.Fatal().Msg().Err(err).Msg("failed to run migrate up")
 		log.Fatal().Msg("failed to run migrate up")
 	}
 
 	log.Info().Msg("db migrated successfully")
 }
 
+func runTaskProcessor(
+	// ctx context.Context,
+	// waitGroup *errgroup.Group,
+	// config utils.Config,
+	redisOpt asynq.RedisClientOpt,
+	store db.Store,
+) {
+	// mailer := mail.NewGmailSender(config.EmailSenderName, config.EmailSenderAddress, config.EmailSenderPassword)
+	taskProcessor := worker.NewRedisTaskProcessor(redisOpt, store)
+
+	log.Info().Msg("start task processor")
+	err := taskProcessor.Start()
+	if err != nil {
+		log.Fatal().Err(err).Msg("failed to start task processor")
+	}
+
+	// waitGroup.Go(func() error {
+	// 	<-ctx.Done()
+	// 	log.Info().Msg("graceful shutdown task processor")
+
+	// 	taskProcessor.Shutdown()
+	// 	log.Info().Msg("task processor is stopped")
+
+	// 	return nil
+	// })
+}
+
 func runGrpcServer(
 	config utils.Config,
 	store db.Store,
+	taskDistributor worker.TaskDistributor,
 ) {
-	server, err := gapi.NewServer(config, store)
+	server, err := gapi.NewServer(config, store, taskDistributor)
 	if err != nil {
 		log.Fatal().Msg("cannot create server")
 	}
@@ -97,9 +133,10 @@ func runGrpcServer(
 func runGatewayServer(
 	config utils.Config,
 	store db.Store,
+	taskDistributor worker.TaskDistributor,
 ) {
 
-	server, err := gapi.NewServer(config, store)
+	server, err := gapi.NewServer(config, store, taskDistributor)
 	if err != nil {
 		log.Fatal().Msg("cannot create server")
 	}
