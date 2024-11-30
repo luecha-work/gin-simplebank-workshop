@@ -209,6 +209,9 @@ SQLC is used to generate Go code from SQL queries.
 
      ```bash
      go install github.com/golang/mock/mockgen@latest
+
+     or
+
      go get github.com/golang/mock/mockgen@latest
      ```
 
