@@ -60,8 +60,8 @@ func randomUser(t *testing.T, role string) (user db.User, password string) {
 	require.NoError(t, err)
 
 	user = db.User{
-		Username: utils.RandomOwner(),
-		// Role:           role,
+		Username:       utils.RandomOwner(),
+		Role:           role,
 		HashedPassword: hashedPassword,
 		FullName:       utils.RandomOwner(),
 		Email:          utils.RandomEmail(),
@@ -164,7 +164,6 @@ func TestCreateUserAPI(t *testing.T) {
 				st, ok := status.FromError(err)
 				require.True(t, ok)
 				require.Equal(t, codes.AlreadyExists, st.Code())
-
 			},
 		},
 		{

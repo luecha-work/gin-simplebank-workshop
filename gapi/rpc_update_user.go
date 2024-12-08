@@ -2,6 +2,7 @@ package gapi
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgtype"
@@ -9,13 +10,13 @@ import (
 	"github.com/techschool/simple_bank/pb"
 	"github.com/techschool/simple_bank/utils"
 	"github.com/techschool/simple_bank/val"
+
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
 func (server *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (*pb.UpdateUserResponse, error) {
-	//TODO: Add authorization
 	authPayload, err := server.authorizeUser(ctx, []string{utils.BankerRole, utils.DepositorRole})
 	if err != nil {
 		return nil, unauthenticatedError(err)
@@ -43,13 +44,13 @@ func (server *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest)
 	}
 
 	if req.Password != nil {
-		hashPassword, err := utils.HashPassword(req.GetPassword())
+		hashedPassword, err := utils.HashPassword(req.GetPassword())
 		if err != nil {
 			return nil, status.Errorf(codes.Internal, "failed to hash password: %s", err)
 		}
 
 		arg.HashedPassword = pgtype.Text{
-			String: hashPassword,
+			String: hashedPassword,
 			Valid:  true,
 		}
 
@@ -57,16 +58,13 @@ func (server *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest)
 			Time:  time.Now(),
 			Valid: true,
 		}
-
 	}
 
 	user, err := server.store.UpdateUser(ctx, arg)
-
 	if err != nil {
-		if err != db.ErrRecordNotFound {
-			return nil, status.Errorf(codes.NotFound, "user not found: %s", err)
+		if errors.Is(err, db.ErrRecordNotFound) {
+			return nil, status.Errorf(codes.NotFound, "user not found")
 		}
-
 		return nil, status.Errorf(codes.Internal, "failed to update user: %s", err)
 	}
 

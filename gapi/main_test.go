@@ -11,6 +11,7 @@ import (
 	"github.com/techschool/simple_bank/token"
 	"github.com/techschool/simple_bank/utils"
 	"github.com/techschool/simple_bank/worker"
+
 	"google.golang.org/grpc/metadata"
 )
 
